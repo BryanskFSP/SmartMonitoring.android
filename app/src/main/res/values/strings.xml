@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SmartMonitoring</string>
+    <string name="hasErrors">Ошибка обнаружена</string>
+    <string name="noErrors">Ошибок не обнаружено</string>
 </resources>
