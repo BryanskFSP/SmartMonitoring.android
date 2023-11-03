@@ -8,4 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transpanent">00ffffff</color>
+    <color name="gr">#ADECECEC</color>
+
+    <color name="main_color_700">#42AAFF</color>
+    <color name="main_color_500">#00BFFF</color>
+    <color name="text_color">#1E1E1E</color>
+    <color name="current_db_card_color">#93dff9</color>
+    <color name="current_db_button_color">#ddf0f6</color>
 </resources>
