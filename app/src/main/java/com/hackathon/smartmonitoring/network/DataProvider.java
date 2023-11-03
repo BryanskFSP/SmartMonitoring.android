@@ -1,11 +1,8 @@
 package com.hackathon.smartmonitoring.network;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class DataProvider {
-    protected Observable.Transformer schedulerTransformer;
+    /*protected Observable.Transformer schedulerTransformer;
     protected Api service = ServiceModule.getInstance().getServiceAddress();
 
     public DataProvider() {
@@ -17,5 +14,5 @@ public class DataProvider {
 
     protected <T> Observable.Transformer<T, T> applySchedulers() {
         return (Observable.Transformer<T, T>) schedulerTransformer;
-    }
+    }*/
 }
