@@ -10,6 +10,9 @@
     <color name="transpanent">#00ffffff</color>
     <color name="gr">#ADECECEC</color>
 
+    <color name="greeen">#E963AE67</color>
+    <color name="red">#E9AE6363</color>
+
     <color name="main_color_700">#42AAFF</color>
     <color name="main_color_500">#00BFFF</color>
     <color name="text_color">#1E1E1E</color>

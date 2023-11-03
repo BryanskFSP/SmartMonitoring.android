@@ -15,4 +15,14 @@ public class SharedPref {
         return getPrefs().edit();
     }
 
+    public static final String AUTH_USER = "auth_user";
+
+    public static void setAuthUser(boolean auth) {
+        getEdit().putBoolean(AUTH_USER, auth).commit();
+    }
+    public static boolean getAuthUser() {
+        return getPrefs().getBoolean(AUTH_USER, false);
+    }
+
+
 }

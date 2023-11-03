@@ -1,13 +1,17 @@
-package com.hackathon.smartmonitoring.fragment;
+package com.hackathon.smartmonitoring.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.fragment.app.Fragment;
+
 import com.hackathon.smartmonitoring.R;
+import com.hackathon.smartmonitoring.activity.MainActivity;
 import com.hackathon.smartmonitoring.presenter.LoginPresenter;
+import com.hackathon.smartmonitoring.util.SharedPref;
 import com.hackathon.smartmonitoring.util.SnackBarUtil;
 import com.hackathon.smartmonitoring.view.LoginView;
 
@@ -18,10 +22,10 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @BindView(R.id.password) EditText password;
     @BindView(R.id.start) Button btn;
     public LoginPresenter presenter;
-    public static LoginFragment newInstance() {
+
+    public static Fragment newInstance() {
         return new LoginFragment();
     }
-
     @Override
     protected void initViews() {
         super.initViews();
@@ -41,15 +45,16 @@ public class LoginFragment extends BaseFragment implements LoginView {
 
     @Override
     public void successMessage(String msg) {
-
+        SharedPref.setAuthUser(true);
+        startActivity(new Intent(getActivity(), MainActivity.class));
     }
 
     @Override
     public void errorMessage(String msg) {
-//        SnackBarUtil util = SnackBarUtil.make(getActivity().findViewById(R.id.container))
-//                .setMessage(msg);
-//        View snackBarView = util.getView();
-//        snackBarView.setBackgroundColor(Color.TRANSPARENT);
-//        util.show();
+        SnackBarUtil util = SnackBarUtil.make(getActivity().findViewById(R.id.container))
+                .setMessage(msg);
+        View snackBarView = util.getView();
+        snackBarView.setBackgroundColor(Color.TRANSPARENT);
+        util.show();
     }
 }
