@@ -1,11 +1,12 @@
 package com.hackathon.smartmonitoring.util;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.hackathon.smartmonitoring.R;
@@ -20,7 +21,7 @@ public class SnackBarUtil extends BaseTransientBottomBar<SnackBarUtil> {
 
     public static SnackBarUtil make(View view) {
         View customView = LayoutInflater.from(view.getContext()).inflate(R.layout.custom_snack_bar, null);
-        customView.setBackgroundResource(R.color.transpanent);
+//        customView.setBackgroundResource(R.color.transpanent);
 
         SnackBarUtil snackBarUtil = new SnackBarUtil(
                 (ViewGroup) view,

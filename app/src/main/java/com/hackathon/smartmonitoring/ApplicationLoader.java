@@ -1,5 +1,6 @@
 package com.hackathon.smartmonitoring;
-import android.support.multidex.MultiDexApplication;
+
+import androidx.multidex.MultiDexApplication;
 
 public class ApplicationLoader extends MultiDexApplication {
     public static ApplicationLoader instance;
