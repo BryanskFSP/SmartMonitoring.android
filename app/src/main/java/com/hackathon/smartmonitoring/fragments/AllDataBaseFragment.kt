@@ -13,6 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class AllDataBaseFragment: Fragment() {
+
     private val binding: AllDatabaseFragmentBinding by lazy {
         AllDatabaseFragmentBinding.inflate(layoutInflater)
     }
@@ -62,5 +63,11 @@ class AllDataBaseFragment: Fragment() {
             }
         }
         //tests>
+    }
+
+    companion object {
+        fun newInstance(): AllDataBaseFragment? {
+            return AllDataBaseFragment()
+        }
     }
 }

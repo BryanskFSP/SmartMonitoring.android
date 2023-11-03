@@ -23,7 +23,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @BindView(R.id.start) Button btn;
     public LoginPresenter presenter;
 
-    public static Fragment newInstance() {
+    public static LoginFragment newInstance() {
         return new LoginFragment();
     }
     @Override

@@ -18,4 +18,5 @@
     <color name="text_color">#1E1E1E</color>
     <color name="current_db_card_color">#93dff9</color>
     <color name="current_db_button_color">#ddf0f6</color>
+    <color name="for_background_refresh_btn">#99F5F5F5</color>
 </resources>
