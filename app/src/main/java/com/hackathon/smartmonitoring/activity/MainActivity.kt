@@ -1,13 +1,16 @@
 package com.hackathon.smartmonitoring.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
+import androidx.appcompat.app.AppCompatActivity
+
 import androidx.fragment.app.Fragment
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ActivityMainBinding
 import com.hackathon.smartmonitoring.fragments.AllDataBaseFragment
 import com.hackathon.smartmonitoring.fragments.CurrentDataBaseFragment
 import com.hackathon.smartmonitoring.fragments.ProfFragment
+
 
 
 class MainActivity : AppCompatActivity() {
