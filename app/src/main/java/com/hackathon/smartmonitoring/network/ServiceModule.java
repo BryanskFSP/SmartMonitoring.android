@@ -2,6 +2,8 @@ package com.hackathon.smartmonitoring.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.hackathon.smartmonitoring.network.Api;
+import com.hackathon.smartmonitoring.network.Const;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -27,9 +29,9 @@ public class ServiceModule {
         }
         return instance;
     }
-    public Api getServiceAddress(){ return getDataFromService(Const.HEAD_URL, Api.class);}
+    public Api getService(){ return getDaDataService(Const.HEAD_URL, Api.class);}
 
-    public <T> T getDataFromService(String url, final Class<T> service) {
+    public <T> T getDaDataService(String url, final Class<T> service) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS).addInterceptor(new Interceptor() {

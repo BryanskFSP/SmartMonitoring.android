@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.hackathon.smartmonitoring.adapter.CurrentDataBaseKotlinAdapter
 import com.hackathon.smartmonitoring.databinding.CurrentDatabaseFragmentBinding
+import com.hackathon.smartmonitoring.network.response.LogsResponse
+import com.hackathon.smartmonitoring.presenter.GetLogPresenter
 import com.hackathon.smartmonitoring.ui.recycler.adapter.AdapterLogsDataBase
-import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
+import com.hackathon.smartmonitoring.view.GetLogView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class CurrentDataBaseFragment : Fragment() {
+class CurrentDataBaseFragment : Fragment(), GetLogView {
     private val binding: CurrentDatabaseFragmentBinding by lazy {
         CurrentDatabaseFragmentBinding.inflate(layoutInflater)
     }
@@ -23,6 +26,8 @@ class CurrentDataBaseFragment : Fragment() {
         AdapterLogsDataBase()
     }
     private var rotateAnimator: ValueAnimator? = null
+    private var presenter: GetLogPresenter? = null
+    private var adapter: CurrentDataBaseKotlinAdapter? =null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,12 +54,14 @@ class CurrentDataBaseFragment : Fragment() {
         }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //<tests
-        adapterLogsDataBase.list = listOf(
-        )
+
+        presenter = GetLogPresenter(this)
+
+        presenter?.getLogs()
 
         binding.refreshBtn.setOnClickListener(View.OnClickListener { l: View? ->
             startRotationAnimation()
+            presenter?.getLogs()
         })
 
         binding.recyclerLog.adapter = adapterLogsDataBase
@@ -62,26 +69,21 @@ class CurrentDataBaseFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener {
             lifecycleScope.launch {
                 delay(1000)
-                adapterLogsDataBase.list = listOf(
-                    LogDataBase(
-                        "12:00", "12.12.2023", false
-                    ),
-                    LogDataBase(
-                        "12:02", "12.12.2023", true
-                    ),
-                    LogDataBase(
-                        "12:03", "12.12.2023", false
-                    ),
-                    LogDataBase(
-                        "12:12", "12.12.2023", false
-                    ),
-                    LogDataBase(
-                        "12:32", "11.12.2023", true
-                    )
-                )
+                presenter?.getLogs()
                 binding.swipeRefresh.isRefreshing = false
             }
         }
-        //tests>
+
     }
+
+    override fun errorMessage(msg: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getLogsFromService(data: MutableList<LogsResponse>?) {
+        stopRotationAnimation()
+        adapter = context?.let { CurrentDataBaseKotlinAdapter(data, it) }
+
+    }
+
 }

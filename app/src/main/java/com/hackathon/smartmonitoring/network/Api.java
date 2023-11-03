@@ -3,13 +3,17 @@ package com.hackathon.smartmonitoring.network;
 
 
 import com.hackathon.smartmonitoring.network.request.LoginRequest;
+import com.hackathon.smartmonitoring.network.response.LogsResponse;
 
-import io.reactivex.Observable;
+import java.util.List;
+
+import rx.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface Api {
-
-    @GET(Const.HEAD_URL)
-    Observable<LoginRequest> loginPerson(@Query("login") String login, @Query("password") String password);  //todo example
+    @GET(Const.LOGS)
+    Observable<LogsResponse> getAddressForDialog(@Query("query") String query);
+    @GET(Const.LOGS)
+    Observable<List<LogsResponse>> getLogs();
 }
