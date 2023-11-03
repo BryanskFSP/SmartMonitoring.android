@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="transpanent">00ffffff</color>
+    <color name="transpanent">#00ffffff</color>
     <color name="gr">#ADECECEC</color>
 
     <color name="main_color_700">#42AAFF</color>
