@@ -2,12 +2,17 @@ package com.hackathon.smartmonitoring.model;
 
 import com.hackathon.smartmonitoring.network.DataProvider;
 import com.hackathon.smartmonitoring.network.response.LoginResponse;
+import com.hackathon.smartmonitoring.network.response.LogsResponse;
 
+import java.util.List;
+
+import rx.Observable;
 
 
 public class DataBaseModel extends DataProvider {
-//    public Observable<LoginResponse> getAddressForDialog(String login, String password){ //todo example
-//        return service.loginPerson(login, password).compose(applySchedulers());
-//    }
+
+    public Observable<List<LogsResponse>> getLog() {
+        return service.getLogs().compose(applySchedulers());
+    }
 
 }

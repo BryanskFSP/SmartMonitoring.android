@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ItemLogBinding
+import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.ui.recycler.diffutilcallback.CallbackLogsDataBase
 import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
 
@@ -18,16 +19,16 @@ class AdapterLogsDataBase : RecyclerView.Adapter<AdapterLogsDataBase.Holder>() {
         val binding: ItemLogBinding
     ): RecyclerView.ViewHolder(binding.root)
 
-    var list: List<LogDataBase> = emptyList()
+    var list: List<LogsResponse> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
-            val callback = CallbackLogsDataBase(
-                oldItems = field,
-                newItems = value
-            )
-            field = value
-            val diffResult = DiffUtil.calculateDiff(callback)
-            diffResult.dispatchUpdatesTo(this)
+//            val callback = CallbackLogsDataBase(
+//                oldItems = ,
+//                newItems = value
+//            )
+//            field = value
+//            val diffResult = DiffUtil.calculateDiff(callback)
+//            diffResult.dispatchUpdatesTo(this)
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -41,15 +42,10 @@ class AdapterLogsDataBase : RecyclerView.Adapter<AdapterLogsDataBase.Holder>() {
         val itemOfList = list[position]
 
         with(holder.binding) {
-            time.text = itemOfList.time
-            date.text = itemOfList.date
-            if (itemOfList.hasErrors) {
-                status.text = context.getString(R.string.hasErrors)
-                status.setTextColor(context.getColor(R.color.red))
-            } else {
-                status.text = context.getString(R.string.noErrors)
-                status.setTextColor(context.getColor(R.color.greeen))
-            }
+//            time.text = itemOfList.
+//            date.text = itemOfList.date
+            status.text = itemOfList.description
+            status.setTextColor(context.getColor(R.color.red))
         }
     }
 
