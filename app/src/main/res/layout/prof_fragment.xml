@@ -22,7 +22,7 @@
             android:paddingTop="10dp"
             android:textColor="@color/text_color"
             android:textSize="18sp"
-            android:text="Список проверок"/>
+            android:text="Профиль"/>
 
         <include
             android:id="@+id/include_current_db"
@@ -33,30 +33,25 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <TextView
+        android:id="@+id/logout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@drawable/item_db_background"
+        android:textSize="20sp"
+        android:drawableStart="@drawable/vector"
+        android:drawablePadding="15dp"
+        android:textColor="@color/text_color"
+        android:text="Выйти"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:animateLayoutChanges="true"
         app:layout_constraintTop_toBottomOf="@id/header_card"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_log"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingHorizontal="15dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_log"/>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
