@@ -1,5 +1,4 @@
 package com.hackathon.smartmonitoring.view;
-import com.hackathon.smartmonitoring.network.response.LoginResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
 
 import java.util.List;

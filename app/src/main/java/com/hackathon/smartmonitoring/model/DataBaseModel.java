@@ -3,7 +3,6 @@ package com.hackathon.smartmonitoring.model;
 import com.hackathon.smartmonitoring.network.DataProvider;
 import com.hackathon.smartmonitoring.network.response.KillLogResponse;
 import com.hackathon.smartmonitoring.network.response.LogFullResponse;
-import com.hackathon.smartmonitoring.network.response.LoginResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
 
 import java.util.List;
