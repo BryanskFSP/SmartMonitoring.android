@@ -46,9 +46,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
 
         presenter = GetLogPresenter(this)
 
-        presenter?.getLogs()
-
-        binding.recyclerLog.adapter = adapterLogsDataBase
+        initRecycler()
 
         binding.swipeRefresh.setOnRefreshListener {
             lifecycleScope.launch {
@@ -86,6 +84,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
     override fun errorMessage(msg: String?) {
         Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
         stopRotationAnimation()
+        binding.progress.visibility = View.GONE
     }
 
     override fun getLogsFromService(data: MutableList<LogsResponse>?) {
@@ -93,6 +92,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
             adapterLogsDataBase.list = logsResponseToLogDataBase(it)
         }
         stopRotationAnimation()
+        binding.progress.visibility = View.GONE
     }
 
     private fun logsResponseToLogDataBase(logsResponse: List<LogsResponse>): List<LogDataBase> {
@@ -105,6 +105,11 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
                 statusText = it.description
             )
         }
+    }
+
+    private fun initRecycler() {
+        presenter?.getLogs()
+        binding.recyclerLog.adapter = adapterLogsDataBase
     }
 
 }
