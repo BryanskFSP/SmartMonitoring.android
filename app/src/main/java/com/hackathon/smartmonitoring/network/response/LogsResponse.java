@@ -5,17 +5,24 @@ import com.google.gson.annotations.SerializedName;
 import kotlin.jvm.internal.SerializedIr;
 
 public class LogsResponse {
-    @SerializedName("id") String id;
-    @SerializedName("name") String name;
-    @SerializedName("description") String description;
-    @SerializedName("organizationID") String organizationID;
-    @SerializedName("dataBaseID") String dataBaseID;
-    @SerializedName("action") int action;
-    @SerializedName("logType") int logType;
-    @SerializedName("entity") int entity;
-    @SerializedName("entityID") int entityID;
-    @SerializedName("entityJSON") String entityJSON;
-
+    @SerializedName("id")
+    String id;
+    @SerializedName("description")
+    String description;
+    @SerializedName("organizationID")
+    String organizationID;
+    @SerializedName("dataBaseID")
+    String dataBaseID;
+    @SerializedName("action")
+    String action;
+    @SerializedName("logType")
+    String logType;
+    @SerializedName("entity")
+    String entity;
+    @SerializedName("createdAt")
+    String entityID;
+    @SerializedName("fixStatus")
+    boolean fixStatus;
 
     public String getId() {
         return id;
@@ -49,39 +56,47 @@ public class LogsResponse {
         this.dataBaseID = dataBaseID;
     }
 
-    public int getAction() {
+    public String getAction() {
         return action;
     }
 
-    public void setAction(int action) {
+    public void setAction(String action) {
         this.action = action;
     }
 
-    public int getLogType() {
+    public String getLogType() {
         return logType;
     }
 
-    public void setLogType(int logType) {
+    public void setLogType(String logType) {
         this.logType = logType;
     }
 
-    public int getEntity() {
+    public String getEntity() {
         return entity;
     }
 
-    public void setEntity(int entity) {
+    public void setEntity(String entity) {
         this.entity = entity;
     }
 
-    public int getEntityID() {
+    public String getEntityID() {
         return entityID;
     }
 
-    public void setEntityID(int entityID) {
+    public void setEntityID(String entityID) {
         this.entityID = entityID;
     }
 
-    public LogsResponse(String id, String description, String organizationID, String dataBaseID, int action, int logType, int entity, int entityID) {
+    public boolean isFixStatus() {
+        return fixStatus;
+    }
+
+    public void setFixStatus(boolean fixStatus) {
+        this.fixStatus = fixStatus;
+    }
+
+    public LogsResponse(String id, String description, String organizationID, String dataBaseID, String action, String logType, String entity, String entityID, boolean fixStatus) {
         this.id = id;
         this.description = description;
         this.organizationID = organizationID;
@@ -90,5 +105,6 @@ public class LogsResponse {
         this.logType = logType;
         this.entity = entity;
         this.entityID = entityID;
+        this.fixStatus = fixStatus;
     }
 }
