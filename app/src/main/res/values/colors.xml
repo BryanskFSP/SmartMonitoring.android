@@ -14,6 +14,7 @@
     <color name="red">#E9AE6363</color>
 
     <color name="main_color_700">#42AAFF</color>
+    <color name="main_color_900">#2870AA</color>
     <color name="main_color_500">#00BFFF</color>
     <color name="text_color">#1E1E1E</color>
     <color name="current_db_card_color">#93dff9</color>
