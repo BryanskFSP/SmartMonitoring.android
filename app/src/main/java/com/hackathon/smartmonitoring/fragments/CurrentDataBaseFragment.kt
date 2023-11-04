@@ -25,7 +25,11 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         CurrentDatabaseFragmentBinding.inflate(layoutInflater)
     }
     private val adapterLogsDataBase: AdapterLogsDataBase by lazy {
-        AdapterLogsDataBase()
+        AdapterLogsDataBase(object : AdapterLogsDataBase.OnClick {
+            override fun onClickItem(id: String) {
+                Toast.makeText(requireActivity(), id, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
     private var rotateAnimator: ValueAnimator? = null
     private var presenter: GetLogPresenter? = null
@@ -95,6 +99,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         return logsResponse.map {
             val dateAndTime = FormatterDateAndTime().format(it.entityID)
             LogDataBase(
+                id = it.id,
                 time = dateAndTime.time,
                 date = dateAndTime.date,
                 statusText = it.description

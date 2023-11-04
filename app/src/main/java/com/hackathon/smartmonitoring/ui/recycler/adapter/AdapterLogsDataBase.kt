@@ -12,8 +12,12 @@ import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.ui.recycler.diffutilcallback.CallbackLogsDataBase
 import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
 
-class AdapterLogsDataBase : RecyclerView.Adapter<AdapterLogsDataBase.Holder>() {
+class AdapterLogsDataBase(private val onClick: OnClick) : RecyclerView.Adapter<AdapterLogsDataBase.Holder>() {
     private lateinit var context: Context
+
+    interface OnClick {
+        fun onClickItem(id: String) {}
+    }
 
     class Holder(
         val binding: ItemLogBinding
@@ -39,6 +43,10 @@ class AdapterLogsDataBase : RecyclerView.Adapter<AdapterLogsDataBase.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val itemOfList = list[position]
+
+        holder.binding.root.setOnClickListener {
+            onClick.onClickItem(itemOfList.id)
+        }
 
         with(holder.binding) {
             time.text = itemOfList.time
