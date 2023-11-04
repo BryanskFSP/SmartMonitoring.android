@@ -2,11 +2,11 @@ package com.hackathon.smartmonitoring.network;
 
 
 
-import com.hackathon.smartmonitoring.network.request.LoginRequest;
 import com.hackathon.smartmonitoring.network.response.KillLogResponse;
 import com.hackathon.smartmonitoring.network.response.LogFullResponse;
+import com.hackathon.smartmonitoring.network.response.LoginPasswordData;
+import com.hackathon.smartmonitoring.network.response.LoginResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
-import com.hackathon.smartmonitoring.util.SharedPref;
 
 import java.util.List;
 
@@ -18,12 +18,13 @@ import retrofit2.http.Query;
 
 public interface Api {
     @GET(Const.LOGS)
-    Observable<LogsResponse> getAddressForDialog(@Query("query") String query);
-    @GET(Const.LOGS)
     Observable<List<LogsResponse>> getLogs();
     @POST("log/{id}")
-    Observable<KillLogResponse> killProcessor(@Path("id") String id);
+    Observable<KillLogResponse> fixProcess(@Path("id") String id);
 
     @GET(Const.FULL_LOG_WITH_INFO)
     Observable<List<LogFullResponse>> getLogFull();
+
+    @GET(Const.AUTH)
+    Observable<LoginResponse> getUserAuth(LoginPasswordData data);
 }

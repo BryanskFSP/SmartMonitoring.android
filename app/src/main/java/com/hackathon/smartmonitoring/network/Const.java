@@ -10,4 +10,7 @@ public class Const {
     public static final String WEB_SOCKET ="https://newestsm.kaboom.pro/jubs/logs";
 
     public static final String FULL_LOG_WITH_INFO = "Log/full";
+
+    public static final String AUTH = "Auth/user";
+
 }
