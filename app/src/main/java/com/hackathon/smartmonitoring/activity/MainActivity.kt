@@ -1,25 +1,66 @@
 package com.hackathon.smartmonitoring.activity
 
 import android.os.Bundle
-
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ActivityMainBinding
 import com.hackathon.smartmonitoring.fragments.*
 import com.hackathon.smartmonitoring.objects.TokenStorage
+import com.hackathon.smartmonitoring.util.NotificationUtil
 import com.hackathon.smartmonitoring.util.SharedPref
+import com.hackathon.smartmonitoring.util.SignalRUtil
+import com.hackathon.smartmonitoring.util.SignalRUtil.AddListener
 
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater)}
+
+    private lateinit var signalRManager: SignalRUtil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        NotificationUtil.createNotificationChannel(this)
+
         loadToken()
         initNavBar()
+
+        signalRManager = SignalRUtil("https://newestsm.kaboom.pro/hubs/logs")
+        signalRManager.startConnection()
+        signalRManager.addOnAddListener(AddListener {
+            runOnUiThread {
+                print(it)
+                handlerWebSocketMessage(it.description)
+                NotificationUtil.showNotification(this, it.dataBase.database, it.description)
+            }
+        })
+        
+}
+
+    override fun onDestroy() {
+        super.onDestroy()
+        signalRManager.stopConnection()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+
+
+
+    private fun handlerWebSocketMessage(text: String) {
+//        val util = SnackBarUtil.make(this.findViewById<View>(R.id.fragment_containe))
+////            .setMessage(text)
+////        val snackBarView = util.view
+////        snackBarView.setBackgroundColor(Color.TRANSPARENT)
+////        util.show()show
+
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+
     }
 
     private fun initNavBar() {
@@ -78,4 +119,11 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun replaceFragment(fragment: Fragment, addToBackStack: Boolean) {
+        val fragmentTransaction: FragmentTransaction = supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_containe, fragment, fragment.javaClass.simpleName)
+        if (addToBackStack) fragmentTransaction.addToBackStack(fragment.javaClass.name)
+        fragmentTransaction.commit()
+    }
 }

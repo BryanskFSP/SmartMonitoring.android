@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.hackathon.smartmonitoring.activity.MainActivity
 import com.hackathon.smartmonitoring.databinding.CurrentDatabaseFragmentBinding
+import com.hackathon.smartmonitoring.dialog.InfoErrorDialog
 import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.presenter.GetLogPresenter
 import com.hackathon.smartmonitoring.ui.recycler.adapter.AdapterLogsDataBase
@@ -29,7 +31,9 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
     private val adapterLogsDataBase: AdapterLogsDataBase by lazy {
         AdapterLogsDataBase(object : AdapterLogsDataBase.OnClick {
             override fun onClickItem(id: String) {
-                Toast.makeText(requireActivity(), id, Toast.LENGTH_SHORT).show()
+                val dialog =InfoErrorDialog(id)
+                dialog.isCancelable = true
+                dialog.show(childFragmentManager, "lol")
             }
         })
     }

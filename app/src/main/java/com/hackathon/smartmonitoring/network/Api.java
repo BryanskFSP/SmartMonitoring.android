@@ -4,6 +4,7 @@ package com.hackathon.smartmonitoring.network;
 
 import com.hackathon.smartmonitoring.network.request.LoginRequest;
 import com.hackathon.smartmonitoring.network.response.KillLogResponse;
+import com.hackathon.smartmonitoring.network.response.LogFullResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
 import com.hackathon.smartmonitoring.util.SharedPref;
 
@@ -22,4 +23,7 @@ public interface Api {
     Observable<List<LogsResponse>> getLogs();
     @POST("log/{id}")
     Observable<KillLogResponse> killProcessor(@Path("id") String id);
+
+    @GET(Const.FULL_LOG_WITH_INFO)
+    Observable<List<LogFullResponse>> getLogFull();
 }
