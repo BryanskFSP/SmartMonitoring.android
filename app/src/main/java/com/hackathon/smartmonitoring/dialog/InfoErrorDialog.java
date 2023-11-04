@@ -12,8 +12,7 @@ import com.hackathon.smartmonitoring.R;
 import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase;
 
 public class InfoErrorDialog extends BottomSheetDialogFragment {
-    public static final String ID_LOGS = "id_logs";
-    private LogDataBase log;
+    final private LogDataBase log;
 
     public InfoErrorDialog(LogDataBase log) {
         this.log = log;
@@ -22,6 +21,10 @@ public class InfoErrorDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.info_error_dialog, container, false);
+
+        name = v.findViewById(R.id.error_name);
+        description = v.findViewById(R.id.description);
+        change = v.findViewById(R.id.change_btn);
 
         initInfo(this.log);
 
@@ -35,6 +38,6 @@ public class InfoErrorDialog extends BottomSheetDialogFragment {
     public void initInfo(LogDataBase log) {
         name.setText(log.getAction());
         description.setText(log.getStatusText());
-        change.setVisibility(log.isFixStatus()? View.VISIBLE : View.GONE);
+        change.setVisibility(log.isFixStatus()? View.GONE : View.VISIBLE);
     }
 }
