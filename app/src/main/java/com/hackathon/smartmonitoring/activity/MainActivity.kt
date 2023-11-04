@@ -12,7 +12,7 @@ import com.hackathon.smartmonitoring.objects.TokenStorage
 import com.hackathon.smartmonitoring.util.NotificationUtil
 import com.hackathon.smartmonitoring.util.SharedPref
 import com.hackathon.smartmonitoring.util.SignalRUtil
-import okhttp3.WebSocket
+import com.hackathon.smartmonitoring.util.SignalRUtil.AddListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,15 +29,15 @@ class MainActivity : AppCompatActivity() {
         initNavBar()
 
         signalRManager = SignalRUtil("https://newestsm.kaboom.pro/hubs/logs")
-        signalRManager.addOnMessageReceivedListener { user, message ->
-            runOnUiThread {
-                print(message)
-                handlerWebSocketMessage("$message")
-                NotificationUtil.showNotification(this, "Новое сообщение", message)
-            }
-        }
-
         signalRManager.startConnection()
+        signalRManager.addOnAddListener(AddListener {
+            runOnUiThread {
+                print(it)
+                handlerWebSocketMessage(it.description)
+                NotificationUtil.showNotification(this, it.dataBase.database, it.description)
+            }
+        })
+        
 }
 
     override fun onDestroy() {
