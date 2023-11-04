@@ -1,6 +1,5 @@
 package com.hackathon.smartmonitoring.ui.recycler.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ItemLogBinding
-import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.ui.recycler.diffutilcallback.CallbackLogsDataBase
 import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
 
@@ -16,7 +14,7 @@ class AdapterLogsDataBase(private val onClick: OnClick) : RecyclerView.Adapter<A
     private lateinit var context: Context
 
     interface OnClick {
-        fun onClickItem(id: String) {}
+        fun onClickItem(item: LogDataBase) {}
     }
 
     class Holder(
@@ -45,7 +43,7 @@ class AdapterLogsDataBase(private val onClick: OnClick) : RecyclerView.Adapter<A
         val itemOfList = list[position]
 
         holder.binding.root.setOnClickListener {
-            onClick.onClickItem(itemOfList.id)
+            onClick.onClickItem(itemOfList)
         }
 
         with(holder.binding) {
