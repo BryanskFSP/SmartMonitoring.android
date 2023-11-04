@@ -34,7 +34,7 @@ public class GetLogPresenter {
                 List<LogsResponse> data = new ArrayList<>();
                 for(int i = 0 ; i < logsResponses.size(); i++){
                     if(logsResponses.get(i)!=null){
-                        if(data.size()>12){
+                        if(data.size()>25){
                             view.getLogsFromService(data);
                         } else data.add(logsResponses.get(i));
                     }

@@ -1,12 +1,14 @@
 package com.hackathon.smartmonitoring.fragments
 
 import android.animation.ValueAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.hackathon.smartmonitoring.databinding.CurrentDatabaseFragmentBinding
@@ -14,6 +16,7 @@ import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.presenter.GetLogPresenter
 import com.hackathon.smartmonitoring.ui.recycler.adapter.AdapterLogsDataBase
 import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
+import com.hackathon.smartmonitoring.util.FormatterDateAndTime
 import com.hackathon.smartmonitoring.view.GetLogView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -83,6 +86,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         stopRotationAnimation()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getLogsFromService(data: MutableList<LogsResponse>?) {
         data?.let {
             adapterLogsDataBase.list = logsResponseToLogDataBase(it)
@@ -90,13 +94,17 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         stopRotationAnimation()
     }
 
-    private fun logsResponseToLogDataBase(logsResponse: List<LogsResponse>): List<LogDataBase> =
-        logsResponse.map {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun logsResponseToLogDataBase(logsResponse: List<LogsResponse>): List<LogDataBase> {
+        return logsResponse.map {
+            val dateAndTime = FormatterDateAndTime().format(it.entityID)
             LogDataBase(
-                time = "12:12",
-                date = "03.11.2023",
+                time = dateAndTime.time,
+                date = dateAndTime.date,
                 statusText = it.description,
                 logType = it.logType
             )
         }
+    }
+
 }
