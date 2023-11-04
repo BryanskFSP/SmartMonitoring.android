@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.hackathon.smartmonitoring.adapter.CurrentDataBaseKotlinAdapter
 import com.hackathon.smartmonitoring.databinding.CurrentDatabaseFragmentBinding
 import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.presenter.GetLogPresenter
 import com.hackathon.smartmonitoring.ui.recycler.adapter.AdapterLogsDataBase
+import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
 import com.hackathon.smartmonitoring.view.GetLogView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,7 +28,6 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
     }
     private var rotateAnimator: ValueAnimator? = null
     private var presenter: GetLogPresenter? = null
-    private var adapter: CurrentDataBaseKotlinAdapter? =null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +36,30 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
     ): View {
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        presenter = GetLogPresenter(this)
+
+        presenter?.getLogs()
+
+        binding.recyclerLog.adapter = adapterLogsDataBase
+
+        binding.swipeRefresh.setOnRefreshListener {
+            lifecycleScope.launch {
+                delay(1000)
+                presenter?.getLogs()
+                binding.swipeRefresh.isRefreshing = false
+            }
+        }
+
+        binding.refreshBtn.setOnClickListener {
+            startRotationAnimation()
+            presenter?.getLogs()
+        }
+
+    }
+
     private fun startRotationAnimation() {
         rotateAnimator = ValueAnimator.ofFloat(0f, 360f)
         rotateAnimator?.interpolator = LinearInterpolator()
@@ -53,37 +77,26 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
             rotateAnimator!!.cancel()
         }
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        presenter = GetLogPresenter(this)
-
-        presenter?.getLogs()
-
-        binding.refreshBtn.setOnClickListener(View.OnClickListener { l: View? ->
-            startRotationAnimation()
-            presenter?.getLogs()
-        })
-
-        binding.recyclerLog.adapter = adapterLogsDataBase
-
-        binding.swipeRefresh.setOnRefreshListener {
-            lifecycleScope.launch {
-                delay(1000)
-                presenter?.getLogs()
-                binding.swipeRefresh.isRefreshing = false
-            }
-        }
-
-    }
 
     override fun errorMessage(msg: String?) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+        stopRotationAnimation()
     }
 
     override fun getLogsFromService(data: MutableList<LogsResponse>?) {
+        data?.let {
+            adapterLogsDataBase.list = logsResponseToLogDataBase(it)
+        }
         stopRotationAnimation()
-        adapter = context?.let { CurrentDataBaseKotlinAdapter(data, it) }
-
     }
 
+    private fun logsResponseToLogDataBase(logsResponse: List<LogsResponse>): List<LogDataBase> =
+        logsResponse.map {
+            LogDataBase(
+                time = "12:12",
+                date = "03.11.2023",
+                statusText = it.description,
+                logType = it.logType
+            )
+        }
 }

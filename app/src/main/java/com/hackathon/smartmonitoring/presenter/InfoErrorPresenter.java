@@ -1,6 +1,7 @@
 package com.hackathon.smartmonitoring.presenter;
 
 import com.hackathon.smartmonitoring.model.DataBaseModel;
+import com.hackathon.smartmonitoring.network.response.KillLogResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
 import com.hackathon.smartmonitoring.view.InfoErrorView;
 
@@ -36,6 +37,25 @@ public class InfoErrorPresenter {
                     }
                 }
 
+            }
+        });
+    }
+
+    public void killProcess(String idDB, int idPD){
+        model.killLogProccess(idDB).subscribe(new Subscriber<KillLogResponse>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(KillLogResponse killLogResponse) {
+                view.errorMessage("Успешно!");
             }
         });
     }

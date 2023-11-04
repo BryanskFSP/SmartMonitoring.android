@@ -20,6 +20,7 @@ public class InfoErrorDialog extends BottomSheetDialogFragment implements InfoEr
 
     public static final String ID_LOGS = "id_logs";
     public InfoErrorPresenter presenter;
+    
     public static InfoErrorDialog newInstance(String id) {
         Bundle args = new Bundle();
         args.putString(ID_LOGS, id);

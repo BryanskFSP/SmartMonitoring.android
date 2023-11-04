@@ -19,16 +19,15 @@ class AdapterLogsDataBase : RecyclerView.Adapter<AdapterLogsDataBase.Holder>() {
         val binding: ItemLogBinding
     ): RecyclerView.ViewHolder(binding.root)
 
-    var list: List<LogsResponse> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
+    var list: List<LogDataBase> = emptyList()
         set(value) {
-//            val callback = CallbackLogsDataBase(
-//                oldItems = ,
-//                newItems = value
-//            )
-//            field = value
-//            val diffResult = DiffUtil.calculateDiff(callback)
-//            diffResult.dispatchUpdatesTo(this)
+            val callback = CallbackLogsDataBase(
+                oldItems = field,
+                newItems = value
+            )
+            field = value
+            val diffResult = DiffUtil.calculateDiff(callback)
+            diffResult.dispatchUpdatesTo(this)
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -42,11 +41,14 @@ class AdapterLogsDataBase : RecyclerView.Adapter<AdapterLogsDataBase.Holder>() {
         val itemOfList = list[position]
 
         with(holder.binding) {
-//            time.text = itemOfList.
-//            date.text = itemOfList.date
-            status.text = itemOfList.description
-            status.setTextColor(context.getColor(R.color.red))
+            time.text = itemOfList.time
+            date.text = itemOfList.date
+            status.text = itemOfList.statusText
+            if(itemOfList.logType.equals("error")){
+                status.setTextColor(context.getColor(R.color.red))
+            } else status.setTextColor(context.getColor(R.color.greeen))
         }
+
     }
 
     override fun getItemCount(): Int =

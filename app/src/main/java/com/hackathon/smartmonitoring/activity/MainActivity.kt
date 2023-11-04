@@ -9,8 +9,10 @@ import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ActivityMainBinding
 import com.hackathon.smartmonitoring.fragments.AllDataBaseFragment
 import com.hackathon.smartmonitoring.fragments.CurrentDataBaseFragment
+import com.hackathon.smartmonitoring.fragments.LoginFragment
 import com.hackathon.smartmonitoring.fragments.ProfFragment
-
+import com.hackathon.smartmonitoring.objects.TokenStorage
+import com.hackathon.smartmonitoring.util.SharedPref
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +21,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        loadToken()
+        initNavBar()
+    }
+
+    private fun initNavBar() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
+            /*if(TokenStorage.token.isNullOrEmpty()) {
+                openAuth()
+                return@setOnItemSelectedListener true
+            }*/
+
             val fragment: Fragment? =  when(item.itemId) {
                 R.id.item_1 -> {
                     AllDataBaseFragment()
@@ -46,8 +58,24 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
         binding.bottomNavigation.selectedItemId = R.id.item_1
+    }
+
+    private fun loadToken() {
+        TokenStorage.token = SharedPref.getToken()
+    }
+
+    private fun openAuth() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_from_top,
+                R.anim.slide_out_to_top,
+                R.anim.slide_in_from_top,
+                R.anim.slide_out_to_top
+            )
+            .replace(R.id.fragment_containe, LoginFragment.newInstance())
+            .commit()
     }
 
 }
