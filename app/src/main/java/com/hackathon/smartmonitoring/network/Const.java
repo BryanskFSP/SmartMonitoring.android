@@ -10,4 +10,17 @@ public class Const {
     public static final String WEB_SOCKET ="https://newestsm.kaboom.pro/jubs/logs";
 
     public static final String FULL_LOG_WITH_INFO = "Log/full";
+
+    public static final String AUTH = "Auth/user";
+
+
+    //todo CHEKING PROBLEMS
+    public static final String CHECK_FULL ="DataBase/{id}/check/full"; // проверка всего сразу
+    public static final String CHECK_MEMORY = "DataBase/{id}/check/memory"; // проверка память
+    public static final String CHECK_STATES = "DataBase/{id}/check/states"; // проверка потоков
+    public static final String CHECK_CHAHINGRATIO = "DataBase/{id}/check/chachingratio"; // проверка кэширования
+    public static final String CHECK_CHAHINGR_INDEX = "DataBase/{id}/check/chachingindexesration"; // проверка кэширования индексов
+
+    public static final String FIX_FULL ="DataBase/{id}/fix/full"; //фикс всех ошибок
+
 }
