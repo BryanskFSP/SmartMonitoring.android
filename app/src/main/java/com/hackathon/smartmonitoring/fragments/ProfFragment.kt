@@ -45,9 +45,21 @@ class ProfFragment : Fragment() , ProfView {
         } else context?.let { binding.errors.setTextColor(it.getColor(R.color.greeen)) }
 
         binding.time.text = data?.createdAt?.substring(data?.createdAt!!.length-15, data?.createdAt!!.length-7)
+        dismissProgress()
+        showInfo()
     }
 
     override fun errorMessage(msg: String?) {
        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showInfo() {
+        binding.city.visibility = View.VISIBLE
+        binding.nameDb.visibility = View.VISIBLE
+        binding.cardError.visibility = View.VISIBLE
+    }
+
+    fun dismissProgress() {
+        binding.progress.visibility = View.GONE
     }
 }
