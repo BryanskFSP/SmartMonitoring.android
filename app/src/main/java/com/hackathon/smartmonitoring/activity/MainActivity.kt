@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ActivityMainBinding
-import com.hackathon.smartmonitoring.fragments.AllDataBaseFragment
-import com.hackathon.smartmonitoring.fragments.CurrentDataBaseFragment
-import com.hackathon.smartmonitoring.fragments.LoginFragment
-import com.hackathon.smartmonitoring.fragments.ProfFragment
+import com.hackathon.smartmonitoring.fragments.*
 import com.hackathon.smartmonitoring.objects.TokenStorage
 import com.hackathon.smartmonitoring.util.NotificationUtil
 import com.hackathon.smartmonitoring.util.SharedPref
@@ -31,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         loadToken()
         initNavBar()
 
-            signalRManager = SignalRUtil("https://newestsm.kaboom.pro/hubs/logs")
+        signalRManager = SignalRUtil("https://newestsm.kaboom.pro/hubs/logs")
         signalRManager.addOnMessageReceivedListener { user, message ->
             runOnUiThread {
                 print(message)
@@ -82,6 +79,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.item_3 -> {
                     ProfFragment()
+                }
+                R.id.item_4 -> {
+                    CheckingFragment()
                 }
                 else -> null
             }

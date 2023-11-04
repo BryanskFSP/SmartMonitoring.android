@@ -16,5 +16,10 @@
         android:enabled="true"
         android:title="Профиль"
         android:icon="@drawable/ic_prof"/>
+    <item
+        android:id="@+id/item_4"
+        android:enabled="true"
+        android:title="Проверки"
+        android:icon="@drawable/ic_checking"/>
 
 </menu>

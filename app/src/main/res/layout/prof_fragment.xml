@@ -18,12 +18,22 @@
             android:orientation="vertical"
             android:background="@drawable/currend_db_card_background">
             <TextView
+                android:id="@+id/city"
                 android:layout_marginLeft="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:textColor="@color/text_color"
                 android:textSize="14sp"
+                android:text="Добро пожаловать,"/>
+            <TextView
+                android:id="@+id/name_db"
+                android:layout_marginLeft="12sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
                 android:text="Добро пожаловать,"/>
 
             <LinearLayout
@@ -78,7 +88,12 @@
         android:layout_width="match_parent"
         android:layout_height="48sp"
         app:cardElevation="10sp"
-        app:cardCornerRadius="8sp">
+        app:cardCornerRadius="8sp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:animateLayoutChanges="true">
         <LinearLayout
             android:layout_gravity="center"
             android:layout_width="match_parent"
