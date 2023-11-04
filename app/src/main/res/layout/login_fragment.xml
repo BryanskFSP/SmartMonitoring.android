@@ -6,72 +6,72 @@
     android:gravity="center_vertical"
     android:paddingLeft="16sp"
     android:paddingRight="16sp"
-    android:background="@drawable/fon">
+    android:background="@drawable/fon"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="Авторизация"
         android:textSize="32sp"
         android:textStyle="bold"
         android:gravity="center_horizontal"
         android:textColor="#144973"/>
 
-    <TextView
-        android:layout_marginTop="16sp"
-        android:layout_marginLeft="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Логин"
-        android:textSize="14sp"
-        android:layout_marginBottom="8sp"
-        android:textColor="#144973"
-        />
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login"
-        android:gravity="center_vertical"
-        android:textSize="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="56sp"
-        android:background="@drawable/background_for_login"/>
-    <TextView
-        android:layout_marginTop="24sp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Пароль"
-        android:layout_marginLeft="16sp"
-        android:textSize="14sp"
-        android:layout_marginBottom="8sp"
-        android:textColor="#144973"
-        />
-    <EditText
-        android:id="@+id/password"
-        android:gravity="center_vertical"
-        android:textSize="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="56sp"
-        android:background="@drawable/background_for_login"/>
+        app:layout_constraintWidth_max="400dp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        app:startIconDrawable="@drawable/badge_svg"
+        app:helperTextTextColor="@color/red"
+        app:boxStrokeColor="@color/main_color_900"
+        app:hintTextColor="@color/main_color_900"
+        app:counterEnabled="true"
+        app:counterMaxLength="25"
+        app:endIconMode="clear_text">
 
-    <LinearLayout
-        android:visibility="gone"
-
-        android:layout_marginLeft="16sp"
-        android:layout_marginTop="8sp"
-        android:id="@+id/warning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="16sp"
-            android:layout_height="16sp"
-            android:src="@drawable/warning"/>
-        <TextView
-            android:layout_marginLeft="4sp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:textColor="#C91033"
-            android:text="Неправильный логин либо пароль"/>
-    </LinearLayout>
+            android:maxLength="26"
+            android:hint="Логин" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_max="400dp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        app:helperText=""
+        app:startIconDrawable="@drawable/password_svg"
+        app:helperTextTextColor="@color/red"
+        app:boxStrokeColor="@color/main_color_900"
+        app:hintTextColor="@color/main_color_900"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="51"
+            android:inputType="textPassword"
+            android:hint="password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:stateListAnimator="@null"
         android:layout_marginTop="24sp"
@@ -82,5 +82,9 @@
         android:textSize="16sp"
         android:textColor="@color/white"
         android:background="@drawable/background_for_button_login"
-        android:text="Вход"/>
+        android:text="Вход"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:animateLayoutChanges="true"/>
 </LinearLayout>

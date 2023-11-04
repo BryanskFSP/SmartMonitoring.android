@@ -18,8 +18,8 @@ import com.hackathon.smartmonitoring.view.LoginView;
 import butterknife.BindView;
 
 public class LoginFragment extends BaseFragment implements LoginView {
-    @BindView(R.id.login) EditText login;
-    @BindView(R.id.password) EditText password;
+    @BindView(R.id.editTextLogin) EditText login;
+    @BindView(R.id.editTextPassword) EditText password;
     @BindView(R.id.start) Button btn;
     public LoginPresenter presenter;
 
