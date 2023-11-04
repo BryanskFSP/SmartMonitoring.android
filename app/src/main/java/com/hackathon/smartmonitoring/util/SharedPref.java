@@ -16,6 +16,7 @@ public class SharedPref {
     }
 
     public static final String AUTH_USER = "auth_user";
+    public static final String AUTH_TOKEN = "auth_token";
 
     public static void setAuthUser(boolean auth) {
         getEdit().putBoolean(AUTH_USER, auth).commit();
@@ -24,5 +25,12 @@ public class SharedPref {
         return getPrefs().getBoolean(AUTH_USER, false);
     }
 
+    public static void setToken(String token)  {
+        getEdit().putString(AUTH_TOKEN, token).commit();
+    }
+
+    public static String getToken() {
+        return getPrefs().getString(AUTH_TOKEN, null);
+    }
 
 }
