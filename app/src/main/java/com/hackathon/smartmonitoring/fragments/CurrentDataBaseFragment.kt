@@ -14,6 +14,7 @@ import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.presenter.GetLogPresenter
 import com.hackathon.smartmonitoring.ui.recycler.adapter.AdapterLogsDataBase
 import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
+import com.hackathon.smartmonitoring.util.FormatterDateAndTime
 import com.hackathon.smartmonitoring.view.GetLogView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -90,12 +91,15 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         stopRotationAnimation()
     }
 
-    private fun logsResponseToLogDataBase(logsResponse: List<LogsResponse>): List<LogDataBase> =
-        logsResponse.map {
+    private fun logsResponseToLogDataBase(logsResponse: List<LogsResponse>): List<LogDataBase> {
+        return logsResponse.map {
+            val dateAndTime = FormatterDateAndTime().format(it.entityID)
             LogDataBase(
-                time = "12:12",
-                date = "03.11.2023",
+                time = dateAndTime.time,
+                date = dateAndTime.date,
                 statusText = it.description
             )
         }
+    }
+
 }
