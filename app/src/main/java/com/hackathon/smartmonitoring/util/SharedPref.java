@@ -48,7 +48,7 @@ public class SharedPref {
     }
 
     public static String getIdDataBase() {
-        return getPrefs().getString(ID_DATA_BASE, null);
+        return getPrefs().getString(ID_DATA_BASE, "c3adc5c3-2905-4adc-bdda-ac3fca03a043");
     }
 
 

@@ -58,11 +58,12 @@ class CheckingFragment: Fragment(), ChekingView {
     }
 
     fun handlerSnackBar(msg: String){
-        val util = SnackBarUtil.make(requireActivity().findViewById(R.id.fragment_containe))
-            .setMessageWhenEnd(msg)
-        val snackBarView = util.view
-        snackBarView.setBackgroundColor(Color.TRANSPARENT)
-        util.show()
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+//        val util = SnackBarUtil.make(requireActivity().findViewById(R.id.fragment_containe))
+//            .setMessageWhenEnd(msg)
+//        val snackBarView = util.view
+//        snackBarView.setBackgroundColor(Color.TRANSPARENT)
+//        util.show()
     }
     override fun errorMessage(msg: String?) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

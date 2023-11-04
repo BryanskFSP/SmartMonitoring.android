@@ -4,6 +4,7 @@ import com.hackathon.smartmonitoring.model.DataBaseModel;
 import com.hackathon.smartmonitoring.network.response.LogFullResponse;
 import com.hackathon.smartmonitoring.view.ProfView;
 
+import java.util.Collections;
 import java.util.List;
 
 import rx.Subscriber;
@@ -30,6 +31,7 @@ public class ProfPresenter {
 
             @Override
             public void onNext(List<LogFullResponse> logFullResponse) {
+                Collections.reverse(logFullResponse);
                 if(logFullResponse.get(0)!=null)
                     view.getLogInfo(logFullResponse.get(0));
             }

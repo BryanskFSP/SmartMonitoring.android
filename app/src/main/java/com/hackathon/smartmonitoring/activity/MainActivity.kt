@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+//        if(!SharedPref.getAuthUser()){
+//            replaceFragment(LoginFragment.newInstance(), true)
+//        }
+
         NotificationUtil.createNotificationChannel(this)
 
         loadToken()
@@ -42,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 print(it)
                 handlerWebSocketMessage(it.description)
-                NotificationUtil.showNotification(this, it.dataBase.database, it.description)
+                NotificationUtil.showNotification(this, it.toString() , "it.description")
             }
         })
         
@@ -61,13 +65,13 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun handlerWebSocketMessage(text: String) {
-        val util = SnackBarUtil.make(this.findViewById<View>(R.id.fragment_containe))
-            .setMessageWhenEnd(text)
-        val snackBarView = util.view
-        snackBarView.setBackgroundColor(Color.TRANSPARENT)
-        util.show()
+//        val util = SnackBarUtil.make(this.findViewById<View>(R.id.fragment_containe))
+//            .setMessageWhenEnd(text)
+//        val snackBarView = util.view
+//        snackBarView.setBackgroundColor(Color.TRANSPARENT)
+//        util.show()
 
-       // Toas/t.makeText(this, text, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 
     }
 
@@ -109,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.bottomNavigation.selectedItemId = R.id.item_1
 
+            //startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun loadToken() {
