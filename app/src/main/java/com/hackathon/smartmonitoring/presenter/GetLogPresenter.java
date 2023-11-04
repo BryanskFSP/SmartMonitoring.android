@@ -1,6 +1,7 @@
 package com.hackathon.smartmonitoring.presenter;
 
 import com.hackathon.smartmonitoring.model.DataBaseModel;
+import com.hackathon.smartmonitoring.network.response.FixResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
 import com.hackathon.smartmonitoring.view.GetLogView;
 
@@ -43,6 +44,25 @@ public class GetLogPresenter {
                     }
                 }
                // view.getLogsFromService(data);
+            }
+        });
+    }
+
+    public void fixAllError(String id){
+        model.fixFull(id).subscribe(new Subscriber<FixResponse>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.errorMessage(e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onNext(FixResponse fixResponse) {
+                view.errorMessage(fixResponse.getNane());
             }
         });
     }
