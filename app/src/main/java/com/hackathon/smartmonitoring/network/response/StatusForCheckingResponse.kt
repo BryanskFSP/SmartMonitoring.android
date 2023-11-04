@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class StatusForCheckingResponse(
     @SerializedName("status")
     val status: Boolean,
-    @SerializedName("nane")
+    @SerializedName("name")
     val nane: String,
     @SerializedName("data")
     val data: String

@@ -45,8 +45,10 @@ class MainActivity : AppCompatActivity() {
         signalRManager.addOnAddListener(AddListener {
             runOnUiThread {
                 print(it)
-                handlerWebSocketMessage(it.description)
-                NotificationUtil.showNotification(this, it.toString() , "it.description")
+                if(it.logType.equals("error")) {
+                    handlerWebSocketMessage(it.description)
+
+                }
             }
         })
         
@@ -72,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 //        util.show()
 
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-
+        NotificationUtil.showNotification(this,text, "it.description")
     }
 
     private fun initNavBar() {
