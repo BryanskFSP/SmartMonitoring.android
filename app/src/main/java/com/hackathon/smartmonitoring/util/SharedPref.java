@@ -17,6 +17,7 @@ public class SharedPref {
 
     public static final String AUTH_USER = "auth_user";
     public static final String AUTH_TOKEN = "auth_token";
+    public static final String KILL_ID = "kill_id";
 
     public static void setAuthUser(boolean auth) {
         getEdit().putBoolean(AUTH_USER, auth).commit();
@@ -31,6 +32,14 @@ public class SharedPref {
 
     public static String getToken() {
         return getPrefs().getString(AUTH_TOKEN, null);
+    }
+
+    public static void setKillId(String id)  {
+        getEdit().putString(KILL_ID, id).commit();
+    }
+
+    public static String getKillId() {
+        return getPrefs().getString(KILL_ID, null);
     }
 
 }

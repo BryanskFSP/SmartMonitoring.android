@@ -52,8 +52,11 @@ class AdapterLogsDataBase(private val onClick: OnClick) : RecyclerView.Adapter<A
             time.text = itemOfList.time
             date.text = itemOfList.date
             status.text = itemOfList.statusText
-            status.setTextColor(context.getColor(R.color.greeen))
+            if(itemOfList.logType.equals("error")){
+                status.setTextColor(context.getColor(R.color.red))
+            } else status.setTextColor(context.getColor(R.color.greeen))
         }
+
     }
 
     override fun getItemCount(): Int =

@@ -1,12 +1,14 @@
 package com.hackathon.smartmonitoring.fragments
 
 import android.animation.ValueAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.hackathon.smartmonitoring.databinding.CurrentDatabaseFragmentBinding
@@ -87,6 +89,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         binding.progress.visibility = View.GONE
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getLogsFromService(data: MutableList<LogsResponse>?) {
         data?.let {
             adapterLogsDataBase.list = logsResponseToLogDataBase(it)
@@ -95,6 +98,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         binding.progress.visibility = View.GONE
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun logsResponseToLogDataBase(logsResponse: List<LogsResponse>): List<LogDataBase> {
         return logsResponse.map {
             val dateAndTime = FormatterDateAndTime().format(it.entityID)
@@ -102,7 +106,8 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
                 id = it.id,
                 time = dateAndTime.time,
                 date = dateAndTime.date,
-                statusText = it.description
+                statusText = it.description,
+                logType = it.logType
             )
         }
     }
