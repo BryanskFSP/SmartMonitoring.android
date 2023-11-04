@@ -65,10 +65,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNavBar() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            /*if(TokenStorage.token.isNullOrEmpty()) {
+            if(!SharedPref.getAuthUser()) {
                 openAuth()
                 return@setOnItemSelectedListener true
-            }*/
+            }
 
             val fragment: Fragment? =  when(item.itemId) {
                 R.id.item_1 -> {

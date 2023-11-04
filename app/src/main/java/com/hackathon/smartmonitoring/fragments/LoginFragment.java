@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import com.hackathon.smartmonitoring.R;
 import com.hackathon.smartmonitoring.activity.MainActivity;
+import com.hackathon.smartmonitoring.network.response.LoginResponse;
+import com.hackathon.smartmonitoring.objects.TokenStorage;
 import com.hackathon.smartmonitoring.presenter.LoginPresenter;
 import com.hackathon.smartmonitoring.util.SharedPref;
 import com.hackathon.smartmonitoring.util.SnackBarUtil;
@@ -50,6 +52,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     public void successMessage(String msg) {
         SharedPref.setAuthUser(true);
         startActivity(new Intent(getActivity(), MainActivity.class));
+
     }
 
     @Override
@@ -58,6 +61,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
                 .setMessage(msg);
         View snackBarView = util.getView();
         snackBarView.setBackgroundColor(Color.TRANSPARENT);
+        progress.setVisibility(View.INVISIBLE);
         util.show();
     }
 }

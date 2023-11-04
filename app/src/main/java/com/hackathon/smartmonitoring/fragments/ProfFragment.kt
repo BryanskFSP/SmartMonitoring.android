@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ProfFragmentBinding
 import com.hackathon.smartmonitoring.network.response.LogFullResponse
+import com.hackathon.smartmonitoring.objects.TokenStorage
 import com.hackathon.smartmonitoring.presenter.ProfPresenter
+import com.hackathon.smartmonitoring.util.SharedPref
 import com.hackathon.smartmonitoring.view.ProfView
 
 class ProfFragment : Fragment() , ProfView {
@@ -29,6 +31,10 @@ class ProfFragment : Fragment() , ProfView {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = ProfPresenter(this)
+
+        binding.exit.setOnClickListener {
+            logout()
+        }
 
         presenter?.getFullLogInfo();
     }
@@ -59,5 +65,22 @@ class ProfFragment : Fragment() , ProfView {
 
     fun dismissProgress() {
         binding.progress.visibility = View.GONE
+    }
+
+    fun logout() {
+        TokenStorage.token = null
+        SharedPref.setToken(null)
+        SharedPref.setAuthUser(false);
+
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_from_top,
+                R.anim.slide_out_to_top,
+                R.anim.slide_in_from_top,
+                R.anim.slide_out_to_top
+            )
+            .replace(R.id.fragment_containe, LoginFragment())
+            .commit()
     }
 }

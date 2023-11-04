@@ -3,6 +3,7 @@ package com.hackathon.smartmonitoring.presenter;
 import com.hackathon.smartmonitoring.model.DataBaseModel;
 import com.hackathon.smartmonitoring.network.response.LoginPasswordData;
 import com.hackathon.smartmonitoring.network.response.LoginResponse;
+import com.hackathon.smartmonitoring.objects.TokenStorage;
 import com.hackathon.smartmonitoring.util.SharedPref;
 import com.hackathon.smartmonitoring.view.LoginView;
 
@@ -30,9 +31,11 @@ public class LoginPresenter {
             public void onNext(LoginResponse loginResponse) {
                 if(loginResponse.getStatus()){
                     SharedPref.setAuthUser(true);
+                    TokenStorage.INSTANCE.setToken(loginResponse.getToken());
+                    System.out.println("------------token" + loginResponse.getToken());
                     SharedPref.setToken(loginResponse.getToken());
                     SharedPref.setIdDataBase(loginResponse.getData().getEntityJSON().getId());
-                    view.successMessage("Успешно авторизованы");
+                    view.successMessage("вы успешо авторизировались");
                 }
             }
         });
