@@ -1,10 +1,6 @@
 package com.hackathon.smartmonitoring.activity
 
-import android.graphics.Color
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,72 +12,57 @@ import com.hackathon.smartmonitoring.fragments.CurrentDataBaseFragment
 import com.hackathon.smartmonitoring.fragments.LoginFragment
 import com.hackathon.smartmonitoring.fragments.ProfFragment
 import com.hackathon.smartmonitoring.objects.TokenStorage
+import com.hackathon.smartmonitoring.util.NotificationUtil
 import com.hackathon.smartmonitoring.util.SharedPref
-import com.hackathon.smartmonitoring.util.SnackBarUtil
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import com.hackathon.smartmonitoring.util.SignalRUtil
 import okhttp3.WebSocket
-import okhttp3.WebSocketListener
-import okio.ByteString
 
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater)}
-    private var webSocket: WebSocket? = null
-//    private val activity = MainActivity.
+
+    private lateinit var signalRManager: SignalRUtil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        NotificationUtil.createNotificationChannel(this)
 
         loadToken()
         initNavBar()
 
+            signalRManager = SignalRUtil("https://newestsm.kaboom.pro/hubs/logs")
+        signalRManager.addOnMessageReceivedListener { user, message ->
+            runOnUiThread {
+                print(message)
+                handlerWebSocketMessage("$message")
+                NotificationUtil.showNotification(this, "Новое сообщение", message)
+            }
+        }
 
-    webSocket = OkHttpClient()
-        .newWebSocket(Request.Builder().url("https://newestsm.kaboom.pro/jubs/logs").build(),  MyWebSocketListener())
-    print( "КЕКЕКЕКЕКЕ")
+        signalRManager.startConnection()
+}
 
+    override fun onDestroy() {
+        super.onDestroy()
+        signalRManager.stopConnection()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 
-    inner class MyWebSocketListener : WebSocketListener() {
-        override fun onOpen(webSocket: WebSocket, response: Response) {
-            super.onOpen(webSocket, response)
-            Log.d("WEB_SOCKET", response?.isSuccessful.toString())
-            print(  response?.isSuccessful.toString())
-        }
 
-        override fun onMessage(webSocket: WebSocket, text: String) {
-            super.onMessage(webSocket, text)
-            handlerWebSocketMessage(text)
-        }
-
-        override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-            super.onMessage(webSocket, bytes)
-            // Обработка бинарных сообщений от сервера
-        }
-
-        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            super.onClosing(webSocket, code, reason)
-            // WebSocket закрывается
-        }
-
-        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-            super.onFailure(webSocket, t, response)
-            Log.e("WEB_SOCKET", "WebSocket failure: ${t.message}")
-            print("WebSocket failure: ${t.message}")
-        }
-
-    }
 
     private fun handlerWebSocketMessage(text: String) {
-        val util = SnackBarUtil.make(this.findViewById<View>(R.id.fragment_containe))
-            .setMessage(text)
-        val snackBarView = util.view
-        snackBarView.setBackgroundColor(Color.TRANSPARENT)
-        util.show()
+//        val util = SnackBarUtil.make(this.findViewById<View>(R.id.fragment_containe))
+////            .setMessage(text)
+////        val snackBarView = util.view
+////        snackBarView.setBackgroundColor(Color.TRANSPARENT)
+////        util.show()show
+
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 
     }
 
