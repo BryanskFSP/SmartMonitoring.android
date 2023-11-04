@@ -18,6 +18,7 @@ import com.hackathon.smartmonitoring.presenter.GetLogPresenter
 import com.hackathon.smartmonitoring.ui.recycler.adapter.AdapterLogsDataBase
 import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
 import com.hackathon.smartmonitoring.util.FormatterDateAndTime
+import com.hackathon.smartmonitoring.util.SharedPref
 import com.hackathon.smartmonitoring.view.GetLogView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -63,7 +64,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
 
         binding.refreshBtn.setOnClickListener {
             startRotationAnimation()
-            presenter?.getLogs()
+            presenter?.fixAllError(SharedPref.getIdDataBase())
         }
 
     }

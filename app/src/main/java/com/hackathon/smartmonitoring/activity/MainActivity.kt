@@ -1,18 +1,26 @@
 package com.hackathon.smartmonitoring.activity
 
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ActivityMainBinding
-import com.hackathon.smartmonitoring.fragments.*
+import com.hackathon.smartmonitoring.fragments.AllDataBaseFragment
+import com.hackathon.smartmonitoring.fragments.CheckingFragment
+import com.hackathon.smartmonitoring.fragments.CurrentDataBaseFragment
+import com.hackathon.smartmonitoring.fragments.LoginFragment
+import com.hackathon.smartmonitoring.fragments.ProfFragment
 import com.hackathon.smartmonitoring.objects.TokenStorage
 import com.hackathon.smartmonitoring.util.NotificationUtil
 import com.hackathon.smartmonitoring.util.SharedPref
 import com.hackathon.smartmonitoring.util.SignalRUtil
 import com.hackathon.smartmonitoring.util.SignalRUtil.AddListener
+import com.hackathon.smartmonitoring.util.SnackBarUtil
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +30,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+//        if(!SharedPref.getAuthUser()){
+//            replaceFragment(LoginFragment.newInstance(), true)
+//        }
 
         NotificationUtil.createNotificationChannel(this)
 
@@ -34,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 print(it)
                 handlerWebSocketMessage(it.description)
-                NotificationUtil.showNotification(this, it.dataBase.database, it.description)
+                NotificationUtil.showNotification(this, it.toString() , "it.description")
             }
         })
         
@@ -54,10 +66,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun handlerWebSocketMessage(text: String) {
 //        val util = SnackBarUtil.make(this.findViewById<View>(R.id.fragment_containe))
-////            .setMessage(text)
-////        val snackBarView = util.view
-////        snackBarView.setBackgroundColor(Color.TRANSPARENT)
-////        util.show()show
+//            .setMessageWhenEnd(text)
+//        val snackBarView = util.view
+//        snackBarView.setBackgroundColor(Color.TRANSPARENT)
+//        util.show()
 
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 
@@ -100,6 +112,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
         binding.bottomNavigation.selectedItemId = R.id.item_1
+
+            //startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun loadToken() {
