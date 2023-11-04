@@ -55,7 +55,7 @@ public class InfoErrorPresenter {
 
             @Override
             public void onNext(KillLogResponse killLogResponse) {
-                view.errorMessage("Успешно!");
+                view.errorMessage("Успешно исправлено!");
             }
         });
     }

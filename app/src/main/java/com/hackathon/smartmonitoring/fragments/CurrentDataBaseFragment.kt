@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.hackathon.smartmonitoring.activity.MainActivity
 import com.hackathon.smartmonitoring.databinding.CurrentDatabaseFragmentBinding
+import com.hackathon.smartmonitoring.dialog.InfoErrorDialog
 import com.hackathon.smartmonitoring.network.response.LogsResponse
 import com.hackathon.smartmonitoring.presenter.GetLogPresenter
 import com.hackathon.smartmonitoring.ui.recycler.adapter.AdapterLogsDataBase
@@ -27,7 +29,13 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         CurrentDatabaseFragmentBinding.inflate(layoutInflater)
     }
     private val adapterLogsDataBase: AdapterLogsDataBase by lazy {
-        AdapterLogsDataBase()
+        AdapterLogsDataBase(object : AdapterLogsDataBase.OnClick {
+            override fun onClickItem(id: String) {
+                val dialog =InfoErrorDialog(id)
+                dialog.isCancelable = true
+                dialog.show(childFragmentManager, "lol")
+            }
+        })
     }
     private var rotateAnimator: ValueAnimator? = null
     private var presenter: GetLogPresenter? = null
@@ -44,9 +52,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
 
         presenter = GetLogPresenter(this)
 
-        presenter?.getLogs()
-
-        binding.recyclerLog.adapter = adapterLogsDataBase
+        initRecycler()
 
         binding.swipeRefresh.setOnRefreshListener {
             lifecycleScope.launch {
@@ -84,6 +90,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
     override fun errorMessage(msg: String?) {
         Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
         stopRotationAnimation()
+        binding.progress.visibility = View.GONE
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -92,6 +99,7 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
             adapterLogsDataBase.list = logsResponseToLogDataBase(it)
         }
         stopRotationAnimation()
+        binding.progress.visibility = View.GONE
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -99,12 +107,18 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
         return logsResponse.map {
             val dateAndTime = FormatterDateAndTime().format(it.entityID)
             LogDataBase(
+                id = it.id,
                 time = dateAndTime.time,
                 date = dateAndTime.date,
                 statusText = it.description,
                 logType = it.logType
             )
         }
+    }
+
+    private fun initRecycler() {
+        presenter?.getLogs()
+        binding.recyclerLog.adapter = adapterLogsDataBase
     }
 
 }

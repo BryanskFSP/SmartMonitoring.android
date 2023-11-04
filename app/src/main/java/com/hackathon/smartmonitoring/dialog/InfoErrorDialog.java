@@ -18,16 +18,22 @@ import com.hackathon.smartmonitoring.view.InfoErrorView;
 
 public class InfoErrorDialog extends BottomSheetDialogFragment implements InfoErrorView {
 
+
     public static final String ID_LOGS = "id_logs";
     public InfoErrorPresenter presenter;
+    public String idDB;
 
-    public static InfoErrorDialog newInstance(String id) {
-        Bundle args = new Bundle();
-        args.putString(ID_LOGS, id);
-        InfoErrorDialog fragment = new InfoErrorDialog();
-        fragment.setArguments(args);
-        return fragment;
+    public InfoErrorDialog(String idDB) {
+        this.idDB = idDB;
     }
+
+//    public static InfoErrorDialog newInstance(String id) {
+//        Bundle args = new Bundle();
+//        args.putString(ID_LOGS, id);
+//        InfoErrorDialog fragment = new InfoErrorDialog();
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     TextView name, description, change;
     @Override
@@ -39,8 +45,8 @@ public class InfoErrorDialog extends BottomSheetDialogFragment implements InfoEr
         description = v.findViewById(R.id.description);
         change = v.findViewById(R.id.change_btn);
 
-        if(!getArguments().getString(ID_LOGS,"").equals("")){
-            presenter.getInfoError(getArguments().getString(ID_LOGS));
+        if(!idDB.equals("")){
+            presenter.getInfoError(idDB);
         }
 
         change.setOnClickListener(l->{
