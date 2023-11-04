@@ -38,17 +38,17 @@ public class DataBaseModel extends DataProvider {
         return service.checkStates(id).compose(applySchedulers());
     }
 
-    Observable<FixResponse> checkChachingratio(String id){
+    public Observable<FixResponse> checkChachingratio(String id){
         return service.checkChachingratio(id).compose(applySchedulers());
     }
-    Observable<FixResponse> checkChachingratioIndex(String id){
+    public Observable<FixResponse> checkChachingratioIndex(String id){
         return service.checkChachingratioIndex(id).compose(applySchedulers());
     }
-    Observable<FixResponse> checkFull(String id){
+    public Observable<FixResponse> checkFull(String id){
         return service.checkFull(id).compose(applySchedulers());
     }
 
-    Observable<FixResponse> fixFull(String id){
+    public Observable<FixResponse> fixFull(String id){
         return service.fixFull(id).compose(applySchedulers());
     }
 }

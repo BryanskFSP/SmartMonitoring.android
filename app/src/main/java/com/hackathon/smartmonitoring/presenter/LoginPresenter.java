@@ -31,6 +31,7 @@ public class LoginPresenter {
                 if(loginResponse.getStatus()){
                     SharedPref.setAuthUser(true);
                     SharedPref.setToken(loginResponse.getToken());
+                    SharedPref.setIdDataBase(loginResponse.getData().getEntityJSON().getId());
                     view.successMessage("Успешно авторизованы");
                 }
             }
