@@ -1,6 +1,7 @@
 package com.hackathon.smartmonitoring.model;
 
 import com.hackathon.smartmonitoring.network.DataProvider;
+import com.hackathon.smartmonitoring.network.response.FixResponse;
 import com.hackathon.smartmonitoring.network.response.KillLogResponse;
 import com.hackathon.smartmonitoring.network.response.LogFullResponse;
 import com.hackathon.smartmonitoring.network.response.LoginPasswordData;
@@ -25,7 +26,29 @@ public class DataBaseModel extends DataProvider {
     public Observable<List<LogFullResponse>> getLogFull(){
         return service.getLogFull().compose(applySchedulers());
     }
-    public Observable<LoginResponse> authUser(LoginPasswordData data){
-        return service.getUserAuth(data).compose(applySchedulers());
+    public Observable<LoginResponse> authUser(String login, String password){
+        return service.getUserAuth(new LoginPasswordData(login, password)).compose(applySchedulers());
+    }
+
+    public Observable<FixResponse> checkMemory(String id){
+        return service.checkMemory(id).compose(applySchedulers());
+    }
+
+    public Observable<FixResponse> checkStates(String id){
+        return service.checkStates(id).compose(applySchedulers());
+    }
+
+    Observable<FixResponse> checkChachingratio(String id){
+        return service.checkChachingratio(id).compose(applySchedulers());
+    }
+    Observable<FixResponse> checkChachingratioIndex(String id){
+        return service.checkChachingratioIndex(id).compose(applySchedulers());
+    }
+    Observable<FixResponse> checkFull(String id){
+        return service.checkFull(id).compose(applySchedulers());
+    }
+
+    Observable<FixResponse> fixFull(String id){
+        return service.fixFull(id).compose(applySchedulers());
     }
 }

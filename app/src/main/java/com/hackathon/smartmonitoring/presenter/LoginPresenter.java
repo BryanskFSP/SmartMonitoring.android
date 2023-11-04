@@ -17,7 +17,7 @@ public class LoginPresenter {
     }
 
     public void loginPerson(String login, String password){
-        model.authUser(new LoginPasswordData(login, password)).subscribe(new Subscriber<LoginResponse>() {
+        model.authUser(login, password).subscribe(new Subscriber<LoginResponse>() {
             @Override
             public void onCompleted() {}
 
