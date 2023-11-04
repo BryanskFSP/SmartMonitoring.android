@@ -5,6 +5,8 @@ import com.hackathon.smartmonitoring.network.response.LogsResponse;
 import com.hackathon.smartmonitoring.view.GetLogView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import rx.Subscriber;
@@ -32,6 +34,7 @@ public class GetLogPresenter {
             @Override
             public void onNext(List<LogsResponse> logsResponses) {
                 List<LogsResponse> data = new ArrayList<>();
+                Collections.reverse(logsResponses);
                 for(int i = 0 ; i < logsResponses.size(); i++){
                     if(logsResponses.get(i)!=null){
                         if(data.size()>25){

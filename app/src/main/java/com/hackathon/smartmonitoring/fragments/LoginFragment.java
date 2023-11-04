@@ -55,7 +55,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @Override
     public void errorMessage(String msg) {
         SnackBarUtil util = SnackBarUtil.make(getActivity().findViewById(R.id.container))
-                .setMessage(msg);
+                .setMessageWhenEnd(msg);
         View snackBarView = util.getView();
         snackBarView.setBackgroundColor(Color.TRANSPARENT);
         util.show();

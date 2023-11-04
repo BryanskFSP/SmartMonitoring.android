@@ -59,7 +59,7 @@ class CheckingFragment: Fragment(), ChekingView {
 
     fun handlerSnackBar(msg: String){
         val util = SnackBarUtil.make(requireActivity().findViewById(R.id.fragment_containe))
-            .setMessage(msg)
+            .setMessageWhenEnd(msg)
         val snackBarView = util.view
         snackBarView.setBackgroundColor(Color.TRANSPARENT)
         util.show()

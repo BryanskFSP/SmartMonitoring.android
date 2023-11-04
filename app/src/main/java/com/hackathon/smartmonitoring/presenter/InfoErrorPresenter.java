@@ -41,7 +41,7 @@ public class InfoErrorPresenter {
         });
     }
 
-    public void killProcess(String idDB, int idPD){
+    public void killProcess(String idDB){
         model.killLogProccess(idDB).subscribe(new Subscriber<KillLogResponse>() {
             @Override
             public void onCompleted() {
@@ -50,7 +50,7 @@ public class InfoErrorPresenter {
 
             @Override
             public void onError(Throwable e) {
-
+                view.errorMessage(e.getLocalizedMessage());
             }
 
             @Override
