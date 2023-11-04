@@ -78,7 +78,12 @@
         android:layout_width="match_parent"
         android:layout_height="48sp"
         app:cardElevation="10sp"
-        app:cardCornerRadius="8sp">
+        app:cardCornerRadius="8sp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:animateLayoutChanges="true">
         <LinearLayout
             android:layout_gravity="center"
             android:layout_width="match_parent"
