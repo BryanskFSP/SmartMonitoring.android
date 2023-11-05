@@ -8,6 +8,8 @@ import com.hackathon.smartmonitoring.network.response.LogFullResponse;
 import com.hackathon.smartmonitoring.network.response.LoginPasswordData;
 import com.hackathon.smartmonitoring.network.response.LoginResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
+import com.hackathon.smartmonitoring.network.response.OtchetIndexOldResponse;
+import com.hackathon.smartmonitoring.network.response.OtchetIndexResponse;
 
 import java.util.List;
 
@@ -55,5 +57,13 @@ public class DataBaseModel extends DataProvider {
 
     public Observable<List<DataBaseResponse>> getDataBase(){
         return service.getDataBase().compose(applySchedulers());
+    }
+
+    public Observable<OtchetIndexResponse> getIndexOtchet(String id){
+        return service.getOtchetIndex(id).compose(applySchedulers());
+    }
+
+    public Observable<OtchetIndexOldResponse> getIndexOldOtchet(String id){
+        return service.getOtcheOldIndex(id).compose(applySchedulers());
     }
 }

@@ -26,4 +26,9 @@ public class Const {
 
     public static final String GET_DB_ON_ID = "DataBase"; // get all db
 
+    //indexes
+
+    public static final String OTHCET_INDEX = "otchet_index";
+    public static final String OTCHET_OLD_INEX = "otchet_old_index";
+
 }

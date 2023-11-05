@@ -9,6 +9,8 @@ import com.hackathon.smartmonitoring.network.response.LogFullResponse;
 import com.hackathon.smartmonitoring.network.response.LoginPasswordData;
 import com.hackathon.smartmonitoring.network.response.LoginResponse;
 import com.hackathon.smartmonitoring.network.response.LogsResponse;
+import com.hackathon.smartmonitoring.network.response.OtchetIndexOldResponse;
+import com.hackathon.smartmonitoring.network.response.OtchetIndexResponse;
 
 import java.util.List;
 
@@ -50,5 +52,10 @@ public interface Api {
 
     @GET(Const.GET_DB_ON_ID)
     Observable<List<DataBaseResponse>> getDataBase();
+
+    @GET(Const.OTHCET_INDEX)
+    Observable<OtchetIndexResponse> getOtchetIndex(@Query("dbID") String id);
+    @GET(Const.OTCHET_OLD_INEX)
+    Observable<OtchetIndexOldResponse> getOtcheOldIndex(@Query("dbID") String id);
 
 }

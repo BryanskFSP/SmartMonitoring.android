@@ -20,6 +20,7 @@ public class SharedPref {
     public static final String KILL_ID = "kill_id";
 
     public static final String ID_DATA_BASE ="id_data_base";
+    public static final String NAME_DATA_BASE ="name_db";
 
     public static void setAuthUser(boolean auth) {
         getEdit().putBoolean(AUTH_USER, auth).commit();
@@ -41,7 +42,7 @@ public class SharedPref {
     }
 
     public static String getKillId() {
-        return getPrefs().getString(KILL_ID, null);
+        return getPrefs().getString(KILL_ID, "");
     }
     public static void setIdDataBase(String id)  {
         getEdit().putString(ID_DATA_BASE, id).commit();
@@ -50,6 +51,11 @@ public class SharedPref {
     public static String getIdDataBase() {
         return getPrefs().getString(ID_DATA_BASE, "c3adc5c3-2905-4adc-bdda-ac3fca03a043");
     }
+    public static void setNameDataBase(String id)  {getEdit().putString(NAME_DATA_BASE, id).commit();
+    }
 
+    public static String getNameDataBase() {
+        return getPrefs().getString(NAME_DATA_BASE, "");
+    }
 
 }

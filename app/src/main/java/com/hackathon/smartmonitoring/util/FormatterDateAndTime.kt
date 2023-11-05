@@ -9,7 +9,8 @@ class FormatterDateAndTime {
    companion object {
        data class DateAndTime(
            val time: String,
-           val date: String
+           val date: String,
+           val simpleDay: String
        )
    }
 
@@ -18,10 +19,12 @@ class FormatterDateAndTime {
         val dateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME)
         val formatterTime = DateTimeFormatter.ofPattern("HH:mm:SS")
         val formatterData = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val simplDate = DateTimeFormatter.ofPattern("dd")
 
         return DateAndTime(
             dateTime.format(formatterTime),
-            dateTime.format(formatterData)
+            dateTime.format(formatterData),
+            dateTime.format(simplDate)
         )
     }
 }

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 print(it)
                 if(it.logType.equals("error")) {
-                    handlerWebSocketMessage(LogDataBase(it.id, it.updatedAt, it.createdAt,
+                    handlerWebSocketMessage(LogDataBase(it.id, "ddd", "t.createdAt",
                         it.description,it.logType,it.isFixStatus,it.action))
                 }
             }
@@ -79,10 +79,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNavBar() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            /*if(TokenStorage.token.isNullOrEmpty()) {
-                openAuth()
-                return@setOnItemSelectedListener true
-            }*/
 
             val fragment: Fragment? =  when(item.itemId) {
                 R.id.item_1 -> {

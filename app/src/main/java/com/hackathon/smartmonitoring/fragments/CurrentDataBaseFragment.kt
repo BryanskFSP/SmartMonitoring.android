@@ -22,6 +22,8 @@ import com.hackathon.smartmonitoring.util.SharedPref
 import com.hackathon.smartmonitoring.view.GetLogView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class CurrentDataBaseFragment : Fragment(), GetLogView {
@@ -99,6 +101,9 @@ class CurrentDataBaseFragment : Fragment(), GetLogView {
             adapterLogsDataBase.list = logsResponseToLogDataBase(it)
         }
         stopRotationAnimation()
+        binding.nameBd.text = SharedPref.getNameDataBase()
+        binding.today.text = "Cегодня " +LocalDateTime.now()
+            .format(DateTimeFormatter.ofPattern("dd")) +" ноября 2023 года"
         binding.progress.visibility = View.GONE
     }
 

@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.hackathon.smartmonitoring.R
+import com.hackathon.smartmonitoring.activity.MainActivity
 import com.hackathon.smartmonitoring.databinding.ProfFragmentBinding
+import com.hackathon.smartmonitoring.fragments.otchet.IndexOtchetFragment
 import com.hackathon.smartmonitoring.network.response.LogFullResponse
 import com.hackathon.smartmonitoring.presenter.ProfPresenter
 import com.hackathon.smartmonitoring.view.ProfView
+
 
 class ProfFragment : Fragment() , ProfView {
     private val binding: ProfFragmentBinding by lazy { ProfFragmentBinding.inflate(layoutInflater) }
@@ -31,6 +34,19 @@ class ProfFragment : Fragment() , ProfView {
         presenter = ProfPresenter(this)
 
         presenter?.getFullLogInfo();
+
+        binding.index.setOnClickListener{l->
+            (activity as MainActivity?)?.replaceFragment(
+                IndexOtchetFragment.newInstance(false),
+                true
+            )
+        }
+        binding.indexOld.setOnClickListener{l->
+            (activity as MainActivity?)?.replaceFragment(
+                IndexOtchetFragment.newInstance(true),
+                true
+            )
+        }
     }
 
     override fun getLogInfo(data: LogFullResponse?) {
