@@ -53,9 +53,9 @@ public interface Api {
     @GET(Const.GET_DB_ON_ID)
     Observable<List<DataBaseResponse>> getDataBase();
 
-    @GET(Const.OTHCET_INDEX)
+    @POST(Const.OTHCET_INDEX)
     Observable<OtchetIndexResponse> getOtchetIndex(@Query("dbID") String id);
-    @GET(Const.OTCHET_OLD_INEX)
+    @POST(Const.OTCHET_OLD_INEX)
     Observable<OtchetIndexOldResponse> getOtcheOldIndex(@Query("dbID") String id);
 
 }
