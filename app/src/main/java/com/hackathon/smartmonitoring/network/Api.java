@@ -2,6 +2,7 @@ package com.hackathon.smartmonitoring.network;
 
 
 
+import com.hackathon.smartmonitoring.network.response.DataBaseResponse;
 import com.hackathon.smartmonitoring.network.response.FixResponse;
 import com.hackathon.smartmonitoring.network.response.KillLogResponse;
 import com.hackathon.smartmonitoring.network.response.LogFullResponse;
@@ -46,5 +47,8 @@ public interface Api {
 
     @POST(Const.FIX_FULL)
     Observable<FixResponse> fixFull(@Path("id") String id);
+
+    @GET(Const.GET_DB_ON_ID)
+    Observable<List<DataBaseResponse>> getDataBase();
 
 }

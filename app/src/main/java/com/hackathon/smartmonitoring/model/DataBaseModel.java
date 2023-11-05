@@ -1,6 +1,7 @@
 package com.hackathon.smartmonitoring.model;
 
 import com.hackathon.smartmonitoring.network.DataProvider;
+import com.hackathon.smartmonitoring.network.response.DataBaseResponse;
 import com.hackathon.smartmonitoring.network.response.FixResponse;
 import com.hackathon.smartmonitoring.network.response.KillLogResponse;
 import com.hackathon.smartmonitoring.network.response.LogFullResponse;
@@ -50,5 +51,9 @@ public class DataBaseModel extends DataProvider {
 
     public Observable<FixResponse> fixFull(String id){
         return service.fixFull(id).compose(applySchedulers());
+    }
+
+    public Observable<List<DataBaseResponse>> getDataBase(){
+        return service.getDataBase().compose(applySchedulers());
     }
 }

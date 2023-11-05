@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.hackathon.smartmonitoring.R
 import com.hackathon.smartmonitoring.databinding.ActivityMainBinding
+import com.hackathon.smartmonitoring.dialog.InfoErrorDialog
 import com.hackathon.smartmonitoring.fragments.AllDataBaseFragment
 import com.hackathon.smartmonitoring.fragments.CheckingFragment
 import com.hackathon.smartmonitoring.fragments.CurrentDataBaseFragment
 import com.hackathon.smartmonitoring.fragments.LoginFragment
 import com.hackathon.smartmonitoring.fragments.ProfFragment
 import com.hackathon.smartmonitoring.objects.TokenStorage
+import com.hackathon.smartmonitoring.ui.recycler.models.LogDataBase
 import com.hackathon.smartmonitoring.util.NotificationUtil
 import com.hackathon.smartmonitoring.util.SharedPref
 import com.hackathon.smartmonitoring.util.SignalRUtil
@@ -31,9 +33,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        if(!SharedPref.getAuthUser()){
-//            replaceFragment(LoginFragment.newInstance(), true)
-//        }
+        if(!SharedPref.getAuthUser()){
+            replaceFragment(LoginFragment.newInstance(), true)
+        }
 
         NotificationUtil.createNotificationChannel(this)
 
@@ -46,8 +48,8 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 print(it)
                 if(it.logType.equals("error")) {
-                    handlerWebSocketMessage(it.description)
-
+                    handlerWebSocketMessage(LogDataBase(it.id, it.updatedAt, it.createdAt,
+                        it.description,it.logType,it.isFixStatus,it.action))
                 }
             }
         })
@@ -66,15 +68,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun handlerWebSocketMessage(text: String) {
-//        val util = SnackBarUtil.make(this.findViewById<View>(R.id.fragment_containe))
-//            .setMessageWhenEnd(text)
-//        val snackBarView = util.view
-//        snackBarView.setBackgroundColor(Color.TRANSPARENT)
-//        util.show()
+    private fun handlerWebSocketMessage(log: LogDataBase) {
 
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-        NotificationUtil.showNotification(this,text, "it.description")
+        val dialog = InfoErrorDialog(log)
+        dialog.isCancelable = true
+        dialog.show(this.supportFragmentManager,"kek")
+
+        NotificationUtil.showNotification(this, log.action, log.statusText)
     }
 
     private fun initNavBar() {

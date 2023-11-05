@@ -23,4 +23,7 @@ public class Const {
 
     public static final String FIX_FULL ="DataBase/{id}/fix/full"; //фикс всех ошибок
 
+
+    public static final String GET_DB_ON_ID = "DataBase"; // get all db
+
 }
