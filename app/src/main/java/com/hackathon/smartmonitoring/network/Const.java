@@ -28,7 +28,7 @@ public class Const {
 
     //indexes
 
-    public static final String OTHCET_INDEX = "otchet_index";
-    public static final String OTCHET_OLD_INEX = "otchet_old_index";
+    public static final String OTHCET_INDEX = "PSQL/stats/indexes";
+    public static final String OTCHET_OLD_INEX = "PSQL/stats/indexes/outdated";
 
 }
